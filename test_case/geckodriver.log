@@ -1,0 +1,16 @@
+1504149402120	geckodriver	INFO	geckodriver 0.18.0
+1504149402120	geckodriver	INFO	Listening on 127.0.0.1:12742
+1504149404206	geckodriver::marionette	INFO	Starting browser C:\Program Files\Mozilla Firefox\firefox.exe with args ["-marionette"]
+1504149405193	Marionette	INFO	Enabled via --marionette
+1504149407034	Marionette	INFO	Listening on port 12749
+1504149407045	Marionette	INFO	Listening on port 12749
+1504149407367	Marionette	WARN	TLS certificate errors will be ignored for this session
+1504149407440	Marionette	DEBUG	loaded listener.js
+1504149407505	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1504149410233	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1504149410234	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1504149412618	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://sscat.in/user/login.php"
+1504149415033	Marionette	DEBUG	Received DOM event "pageshow" for "https://sscat.in/user/login.php"
+1504149415499	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1504149429227	Marionette	INFO	New connections will no longer be accepted
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
