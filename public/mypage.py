@@ -6,6 +6,7 @@ by huangsl
 
 import time
 import os
+import ConfigParser
 from selenium import webdriver
 # from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -23,22 +24,26 @@ logger = Logger(logger="BasePage").getlog()
 now_time = time.strftime("%Y%m%d%H%M%S")
 
 
-class Module(object):
+class MyPage(object):
 
-    def __init__(self, browser='ff'):
-        dr = None
-        if browser == "Chrome" or browser == "cr":
-            dr = webdriver.Chrome()
-        elif browser == "Firefox" or browser == "ff":
-            dr = webdriver.Firefox()
-        elif browser == "PhantomJS" or browser == "ph":
-            dr = webdriver.PhantomJS()
+    def __init__(self):
+        # 从配置文件读取浏览器类型并打开对应浏览器
+        conf_file = os.path.dirname(os.getcwd()) + "\config\config.ini"
+        cp = ConfigParser.ConfigParser()
+        cp.read(conf_file)
+        browser = cp.get("browser", "name")
+        if browser == "Chrome":
+            driver = webdriver.Chrome()
+        elif browser == "PhantomJS":
+            driver = webdriver.PhantomJS()
+        else:
+            driver = webdriver.Firefox()
 
         try:
-            self.driver = dr
+            self.driver = driver
             logger.info(u"%s打开%s浏览器" % (success, browser))
         except Exception:
-            raise NameError(u"未找到%s浏览器，请输入'cr'，'ff'或'ph'。")
+            raise NameError(u"未找到配置的浏览器，请修改配置为'Chrome'，'Firefox'或'PhantomJS'")
 
     def back(self):
         self.driver.back()
@@ -293,6 +298,15 @@ class Module(object):
                 logger.error(u"%s无法通过<%s>选中<%s>项，错误：%s" % (fail, select_type, value, e))
         else:
             raise NameError(u"请输入正确的查找方法：index, value, visible_text")
+
+    def get_page_title(self):
+        """
+        获取网页title
+        :return: title
+        """
+        title = self.driver.title
+        logger.info(u"%s获取当前网页title为：%s" %(success, title))
+        return title
 
     def quit(self):
         self.driver.quit()

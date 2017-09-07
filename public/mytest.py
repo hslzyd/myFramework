@@ -1,7 +1,11 @@
-# coding = utf-8
+# coding=utf-8
+"""
+测试类的基类，继承自unittest.Testcase
+定义测试套件，打开哪个浏览器
+"""
 
 import unittest
-from public import module
+from public import mypage
 from public import logger
 
 
@@ -9,7 +13,7 @@ class MyTest(unittest.TestCase):
     def setUp(self):
         self.logger = logger.Logger("MyTest").getlog()
         self.logger.info("############################## Test Start ##############################")
-        self.driver = module.Module('Firefox')
+        self.driver = mypage.MyPage()
         self.driver.max_window()
 
     def tearDown(self):
