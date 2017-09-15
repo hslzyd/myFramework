@@ -18,4 +18,4 @@ class Bing(basepage.BasePage):
 
     def get_title(self):
         u"""获取页面title"""
-        self.driver.get_page_title()
+        return self.driver.get_page_title()
