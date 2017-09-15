@@ -15,4 +15,5 @@ class TestBing(mytest.MyTest):
         bs.open_bing()
         bs.search("selenium")
         sleep(3)
-        self.assertIn(u'selenium', bs.get_title())
+        title = bs.get_title()
+        self.assertIn(u'selenium', title)

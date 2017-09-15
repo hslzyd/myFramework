@@ -1,0 +1,11 @@
+2017-09-15 14:43:51,723 - MyTest - INFO - ############################## Test Start ##############################
+2017-09-15 14:43:55,157 - BasePage - INFO - SUCCESS    打开Chrome浏览器
+2017-09-15 14:43:56,302 - BasePage - INFO - 窗口最大化
+2017-09-15 14:43:56,802 - BasePage - INFO - 打开站点 http://www.bing.com
+2017-09-15 14:43:56,832 - BasePage - INFO - SUCCESS    通过<id>查找<sb_form_q>元素
+2017-09-15 14:43:56,933 - BasePage - INFO - SUCCESS    清空输入框并输入：selenium
+2017-09-15 14:43:56,973 - BasePage - INFO - SUCCESS    通过<id>查找<sb_form_go>元素
+2017-09-15 14:44:00,130 - BasePage - INFO - SUCCESS    点击元素：id=>sb_form_go
+2017-09-15 14:44:03,144 - BasePage - INFO - SUCCESS    获取当前网页title为：selenium - 国内版 Bing
+2017-09-15 14:44:06,292 - BasePage - INFO - 退出浏览器
+2017-09-15 14:44:06,292 - MyTest - INFO - ##############################  Test End  ##############################
