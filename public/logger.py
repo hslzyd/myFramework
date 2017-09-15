@@ -16,7 +16,7 @@ class Logger(object):
 
         # 创建fileHandler，保存日志到日志文件
         now = time.strftime("%Y%m%d%H%M%S")
-        log_path = os.path.dirname(os.getcwd()) + '\logs\\'
+        log_path = os.getcwd() + '\\logs\\'
         log_name = log_path + now + '.log'
         fh = logging.FileHandler(log_name)
         fh.setLevel(logging.INFO)
