@@ -28,7 +28,7 @@ class MyPage(object):
 
     def __init__(self):
         # 从配置文件读取浏览器类型并打开对应浏览器
-        conf_file = os.path.dirname(os.getcwd()) + "\config\config.ini"
+        conf_file = os.getcwd() + "\\config\\config.ini"
         cp = ConfigParser.ConfigParser()
         cp.read(conf_file)
         browser = cp.get("browser", "name")
@@ -200,7 +200,7 @@ class MyPage(object):
             ActionChains(self.driver).context_click(elem).perform()
             logger.info(u"%s右键点击元素：%s" % (success, selector))
         except Exception as e:
-            logger.error(u"%s无法右键点击，错误：%s" % (fail, e))
+            logger.error(u"%s无法右键点击元素%s，错误：%s" % (fail, selector, e))
 
     def exec_js(self, script):
         """
@@ -305,8 +305,21 @@ class MyPage(object):
         :return: title
         """
         title = self.driver.title
-        logger.info(u"%s获取当前网页title为：%s" %(success, title))
+        logger.info(u"%s获取当前网页title为：%s" % (success, title))
         return title
+
+    def move_to(self, selector):
+        """
+        鼠标移动到元素并停留
+        :return:
+        """
+        self.wait_element(selector)
+        try:
+            elem = self.find_element(selector)
+            ActionChains(self.driver).move_to_element(elem).perform()
+            logger.info(u"%s鼠标移动至元素%s" % (success, selector))
+        except Exception as e:
+            logger.error(u"%s移动至元素%s失败，错误：%s" % (fail, selector, e))
 
     def quit(self):
         self.driver.quit()
