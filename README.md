@@ -2,7 +2,7 @@
 This my test selenium framework，Thanks to https://github.com/xiaoshitoutester/UItestframework
 
 ## 1、常用驱动下载地址：
-[Chrome](http://chromedriver.storage.googleapis.com/index.html)
+[Chrome](https://chromedriver.storage.googleapis.com/index.html)
 [Firefox](https://github.com/mozilla/geckodriver/releases)
 
 ## 2、封装方法介绍
