@@ -1,7 +1,7 @@
 # coding=utf-8
 
 import unittest
-import HTMLTestRunner
+from utils import HTMLTestRunner_PY3
 import time
 import os
 
@@ -12,8 +12,8 @@ def run():
 
     now_time = time.strftime("%Y-%m-%d-%H_%M_%S")
     report_name = os.getcwd() + '\\reports\\TestReport_' + now_time + '.html'
-    fp = file(report_name, 'wb')
-    runner = HTMLTestRunner.HTMLTestRunner(stream=fp, title=u"测试报告", description=u"测试用例执行情况")
+    fp = open(report_name, 'wb')
+    runner = HTMLTestRunner_PY3.HTMLTestRunner(stream=fp, title=u"测试报告", description=u"测试用例执行情况")
     runner.run(suite)
     fp.close()
 

@@ -6,7 +6,7 @@ by huangsl
 
 import time
 import os
-import ConfigParser
+import configparser
 from selenium import webdriver
 # from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -29,7 +29,7 @@ class MyPage(object):
     def __init__(self):
         # 从配置文件读取浏览器类型并打开对应浏览器
         conf_file = os.getcwd() + "\\config\\config.ini"
-        cp = ConfigParser.ConfigParser()
+        cp = configparser.ConfigParser()
         cp.read(conf_file)
         browser = cp.get("browser", "name")
         if browser == "Chrome":
@@ -135,7 +135,7 @@ class MyPage(object):
             else:
                 logger.info(u"%s清空输入框并输入" % success)
         except Exception as e:
-            logger.error(u"%s无法往输入框输入，错误：%s" %(fail, e))
+            logger.error(u"%s无法往输入框输入，错误：%s" % (fail, e))
             self.take_screenshot()
 
     def type(self, selector, text, log_text=True):
@@ -155,7 +155,7 @@ class MyPage(object):
             else:
                 logger.info(u"%s清空输入框并输入" % success)
         except Exception as e:
-            logger.error(u"%s无法往输入框输入，错误：%s" %(fail, e))
+            logger.error(u"%s无法往输入框输入，错误：%s" % (fail, e))
             self.take_screenshot()
 
     def clear(self, selector):
@@ -170,7 +170,7 @@ class MyPage(object):
             elem.clear()
             logger.info(u"%s清空输入框" % success)
         except Exception as e:
-            logger.error(u"%s无法清空输入框，错误：%s" %(fail, e))
+            logger.error(u"%s无法清空输入框，错误：%s" % (fail, e))
             self.take_screenshot()
 
     def click(self, selector):
