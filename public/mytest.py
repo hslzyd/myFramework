@@ -6,7 +6,7 @@
 
 import unittest
 from public import mypage
-from public import logger
+from utils import logger
 
 
 class MyTest(unittest.TestCase):

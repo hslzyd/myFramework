@@ -8,15 +8,13 @@ import time
 import os
 import configparser
 from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-# from selenium.common.exceptions import TimeoutException
-# from selenium.common.exceptions import NoSuchElementException
-from public.logger import Logger
+from utils.logger import Logger
 from selenium.webdriver.support.ui import Select
+from utils.config import Config
 
 success = "SUCCESS    "
 fail = "FAIL    "
@@ -27,11 +25,8 @@ now_time = time.strftime("%Y%m%d%H%M%S")
 class MyPage(object):
 
     def __init__(self):
-        # 从配置文件读取浏览器类型并打开对应浏览器
-        conf_file = os.getcwd() + "\\config\\config.ini"
-        cp = configparser.ConfigParser()
-        cp.read(conf_file)
-        browser = cp.get("browser", "name")
+        browser = Config().get("browser", "name")
+
         if browser == "Chrome":
             driver = webdriver.Chrome()
         elif browser == "PhantomJS":
