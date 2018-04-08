@@ -5,8 +5,8 @@ by huangsl
 调用时，如：logger.info(string)将string记录为INFO级别的日志
 """
 import logging
-import os.path
 import time
+from utils.config import LOG_PATH
 
 
 class Logger(object):
@@ -16,8 +16,7 @@ class Logger(object):
 
         # 创建fileHandler，保存日志到日志文件
         now = time.strftime("%Y%m%d%H%M%S")
-        log_path = os.getcwd() + '\\logs\\'
-        log_name = log_path + now + '.log'
+        log_name = LOG_PATH + now + '.log'
         fh = logging.FileHandler(log_name)
         fh.setLevel(logging.INFO)
 

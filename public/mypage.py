@@ -5,16 +5,14 @@ by huangsl
 """
 
 import time
-import os
-import configparser
-from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from utils.logger import Logger
 from selenium.webdriver.support.ui import Select
-from utils.config import Config
+from public.browser import Browser
+import utils.config
 
 success = "SUCCESS    "
 fail = "FAIL    "
@@ -25,20 +23,20 @@ now_time = time.strftime("%Y%m%d%H%M%S")
 class MyPage(object):
 
     def __init__(self):
-        browser = Config().get("browser", "name")
-
-        if browser == "Chrome":
-            driver = webdriver.Chrome()
-        elif browser == "PhantomJS":
-            driver = webdriver.PhantomJS()
-        else:
-            driver = webdriver.Firefox()
-
-        try:
-            self.driver = driver
-            logger.info(u"%s打开%s浏览器" % (success, browser))
-        except Exception:
-            raise NameError(u"未找到配置的浏览器，请修改配置为'Chrome'，'Firefox'或'PhantomJS'")
+        self.br_type = utils.config.Config().get("browser", "name")
+        self.driver = Browser().get_driver()
+        # if browser == "Chrome":
+        #     driver = webdriver.Chrome()
+        # elif browser == "PhantomJS":
+        #     driver = webdriver.PhantomJS()
+        # else:
+        #     driver = webdriver.Firefox()
+        #
+        # try:
+        #     self.driver = driver
+        #     logger.info(u"%s打开%s浏览器" % (success, browser))
+        # except Exception:
+        #     raise NameError(u"未找到配置的浏览器，请修改配置为'Chrome'，'Firefox'或'PhantomJS'")
 
     def back(self):
         self.driver.back()
@@ -58,8 +56,7 @@ class MyPage(object):
         logger.info(u"强制等待 %f 秒" % secs)
 
     def take_screenshot(self):
-        file_path = os.path.dirname(os.getcwd()) + '\\screenshots\\'
-        file_name = file_path + now_time + '.jpg'
+        file_name = utils.config.SCREENSHOT_PATH + now_time + '.jpg'
         try:
             self.driver.get_screenshot_as_file(file_name)
             logger.info(u"%s已截图保存为：%s" % (success, file_name))
