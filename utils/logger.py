@@ -16,7 +16,7 @@ class Logger(object):
 
         # 创建fileHandler，保存日志到日志文件
         now = time.strftime("%Y%m%d%H%M%S")
-        log_name = LOG_PATH + now + '.log'
+        log_name = LOG_PATH + '\\' + now + '.log'
         fh = logging.FileHandler(log_name)
         fh.setLevel(logging.INFO)
 
