@@ -13,6 +13,7 @@ REPORT_PATH = os.path.join(BASE_PATH, 'reports')
 SCREENSHOT_PATH = os.path.join(BASE_PATH, 'screenshots')
 DRIVER_PATH = os.path.join(BASE_PATH, 'drivers')
 DATA_PATH = os.path.join(BASE_PATH, 'data')
+CASE_PATH = os.path.join(BASE_PATH, 'test_case')
 
 
 class Config:
