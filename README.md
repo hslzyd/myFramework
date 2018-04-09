@@ -1,9 +1,8 @@
 # myFramework
-This my test selenium framework，Thanks to https://github.com/xiaoshitoutester/UItestframework
+这个branch修改了部分内容，使用了py3版本，将驱动和HTMLTestRUnner也内置进来了，感谢灰蓝大神
 
-## 1、常用驱动下载地址：
-[Chrome](https://chromedriver.storage.googleapis.com/index.html)
-[Firefox](https://github.com/mozilla/geckodriver/releases)
+## 1、依赖
+selenium、configparser、xlrd
 
 ## 2、封装方法介绍
 - 控制浏览器后退：back()
@@ -35,7 +34,7 @@ select_type有index, value, visible_text三种方式，value为对应type的值
 ## 3、基本用法
 1. 修改config文件夹下的ini配置文件，选择要用的浏览器
 2. 在page文件夹下写页面类，继承BasePage类，将页面操作写在页面类中
-3. 在test_case文件夹写用例类，命名为“test_*.py”，继承MyTest类，将用例卸载用例类中
+3. 在test_case文件夹写用例类，命名为“test_*.py”，继承MyTest类，将用例写在用例类中
 4. 执行run_all.py，生成测试报告
 
 ## 4、待扩展功能
