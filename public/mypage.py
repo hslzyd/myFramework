@@ -28,27 +28,27 @@ class MyPage(object):
 
     def back(self):
         self.driver.back()
-        self.logger.info(u"点击浏览器后退按钮")
+        self.logger.info("点击浏览器后退按钮")
 
     def forward(self):
         self.driver.forward()
-        self.logger.info(u"点击浏览器前进按钮")
+        self.logger.info("点击浏览器前进按钮")
 
     def open_url(self, url):
         self.driver.get(url)
-        self.logger.info(u"打开站点 %s" % url)
+        self.logger.info("打开站点 %s" % url)
 
     def sleep(self, secs):
         time.sleep(secs)
-        self.logger.info(u"强制等待 %f 秒" % secs)
+        self.logger.info("强制等待 %f 秒" % secs)
 
     def take_screenshot(self):
         file_name = utils.config.SCREENSHOT_PATH + now_time + '.jpg'
         try:
             self.driver.get_screenshot_as_file(file_name)
-            self.logger.info(u"%s已截图保存为：%s" % (success, file_name))
+            self.logger.info("%s已截图保存为：%s" % (success, file_name))
         except NameError as e:
-            self.logger.error(u"%s截图失败，错误：%s" % (fail, e))
+            self.logger.error("%s截图失败，错误：%s" % (fail, e))
             self.take_screenshot()
 
     def find_element(self, selector):
@@ -58,7 +58,7 @@ class MyPage(object):
         :return element:
         """
         if '=>' not in selector:
-            raise NameError(u"格式错误，请按此格式输入：by=>value")
+            raise NameError("格式错误，请按此格式输入：by=>value")
 
         selector_by = selector.split('=>')[0].strip()
         selector_value = selector.split('=>')[1].strip()
@@ -66,33 +66,33 @@ class MyPage(object):
         # by_id
         if selector_by == "id":
             element = self.driver.find_element_by_id(selector_value)
-            self.logger.info(u"%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
+            self.logger.info("%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
         # by_name
         elif selector_by == "name":
             element = self.driver.find_element_by_name(selector_value)
-            self.logger.info(u"%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
+            self.logger.info("%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
         # by_class_name
         elif selector_by == "class_name":
             element = self.driver.find_element_by_class_name(selector_value)
-            self.logger.info(u"%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
+            self.logger.info("%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
         # by_link_text
         elif selector_by == "link_text":
             element = self.driver.find_element_by_link_text(selector_value)
-            self.logger.info(u"%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
+            self.logger.info("%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
         # by_tag_name
         elif selector_by == "tag_name":
             element = self.driver.find_element_by_tag_name(selector_value)
-            self.logger.info(u"%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
+            self.logger.info("%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
         # by_xpath
         elif selector_by == "xpath":
             element = self.driver.find_element_by_xpath(selector_value)
-            self.logger.info(u"%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
+            self.logger.info("%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
         # by_css_selector
         elif selector_by == "css_selector":
             element = self.driver.find_element_by_css_selector(selector_value)
-            self.logger.info(u"%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
+            self.logger.info("%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
         else:
-            raise NameError(u"请输入有效的元素类型")
+            raise NameError("请输入有效的元素类型")
 
         return element
 
@@ -110,11 +110,11 @@ class MyPage(object):
             elem.clear()
             elem.send_keys(text)
             if log_text:
-                self.logger.info(u"%s清空输入框并输入：%s" % (success, text))
+                self.logger.info("%s清空输入框并输入：%s" % (success, text))
             else:
-                self.logger.info(u"%s清空输入框并输入" % success)
+                self.logger.info("%s清空输入框并输入" % success)
         except Exception as e:
-            self.logger.error(u"%s无法往输入框输入，错误：%s" % (fail, e))
+            self.logger.error("%s无法往输入框输入，错误：%s" % (fail, e))
             self.take_screenshot()
 
     def type(self, selector, text, log_text=True):
@@ -130,11 +130,11 @@ class MyPage(object):
             elem = self.find_element(selector)
             elem.send_keys(text)
             if log_text:
-                self.logger.info(u"%s清空输入框并输入：%s" % (success, text))
+                self.logger.info("%s清空输入框并输入：%s" % (success, text))
             else:
-                self.logger.info(u"%s清空输入框并输入" % success)
+                self.logger.info("%s清空输入框并输入" % success)
         except Exception as e:
-            self.logger.error(u"%s无法往输入框输入，错误：%s" % (fail, e))
+            self.logger.error("%s无法往输入框输入，错误：%s" % (fail, e))
             self.take_screenshot()
 
     def clear(self, selector):
@@ -147,9 +147,9 @@ class MyPage(object):
             self.wait_element(selector)
             elem = self.find_element(selector)
             elem.clear()
-            self.logger.info(u"%s清空输入框" % success)
+            self.logger.info("%s清空输入框" % success)
         except Exception as e:
-            self.logger.error(u"%s无法清空输入框，错误：%s" % (fail, e))
+            self.logger.error("%s无法清空输入框，错误：%s" % (fail, e))
             self.take_screenshot()
 
     def click(self, selector):
@@ -162,9 +162,9 @@ class MyPage(object):
             self.wait_element(selector)
             elem = self.find_element(selector)
             elem.click()
-            self.logger.info(u"%s点击元素：%s" % (success, selector))
+            self.logger.info("%s点击元素：%s" % (success, selector))
         except Exception as e:
-            self.logger.error(u"%s无法点击元素，错误：%s" % (fail, e))
+            self.logger.error("%s无法点击元素，错误：%s" % (fail, e))
             self.take_screenshot()
 
     def right_click(self, selector):
@@ -177,9 +177,9 @@ class MyPage(object):
             self.wait_element(selector)
             elem = self.find_element(selector)
             ActionChains(self.driver).context_click(elem).perform()
-            self.logger.info(u"%s右键点击元素：%s" % (success, selector))
+            self.logger.info("%s右键点击元素：%s" % (success, selector))
         except Exception as e:
-            self.logger.error(u"%s无法右键点击元素%s，错误：%s" % (fail, selector, e))
+            self.logger.error("%s无法右键点击元素%s，错误：%s" % (fail, selector, e))
 
     def exec_js(self, script):
         """
@@ -189,13 +189,13 @@ class MyPage(object):
         """
         try:
             self.driver.execute_script(script)
-            self.logger.info(u"%s执行js：%s" % (success, script))
+            self.logger.info("%s执行js：%s" % (success, script))
         except Exception as e:
-            self.logger.error(u"%s执行js<%s>发生错误：%s" % (fail, script, e))
+            self.logger.error("%s执行js<%s>发生错误：%s" % (fail, script, e))
 
     def max_window(self):
         self.driver.maximize_window()
-        self.logger.info(u"窗口最大化")
+        self.logger.info("窗口最大化")
 
     def get_text(self, selector):
         """
@@ -206,23 +206,22 @@ class MyPage(object):
         try:
             self.wait_element(selector)
             elem_text = self.find_element(selector).text
-            self.logger.info(u"%s获取文本为：%s" % (success, elem_text))
+            self.logger.info("%s获取文本为：%s" % (success, elem_text))
             return elem_text
         except Exception as e:
-            self.logger.error(u"%s获取文本失败，错误：%s" % (fail, e))
+            self.logger.error("%s获取文本失败，错误：%s" % (fail, e))
 
     def wait_element(self, selector):
         """
         显式等待元素出现
         :param selector:
-        :return:
         """
         if '=>' not in selector:
-            raise NameError(u"格式错误，请按此格式输入：by=>value")
+            raise NameError("格式错误，请按此格式输入：by=>value")
 
         selector_by = selector.split('=>')[0].strip()
         selector_value = selector.split('=>')[1].strip()
-        message = u"元素%s不存在" % selector_value
+        message = "元素%s不存在" % selector_value
 
         if selector_by == 'id':
             WebDriverWait(self.driver, 10, 0.5)\
@@ -246,7 +245,7 @@ class MyPage(object):
             WebDriverWait(self.driver, 10, 0.5)\
                 .until(ec.presence_of_element_located((By.CSS_SELECTOR, selector_value)), message)
         else:
-            raise NameError(u"请输入正确的查找方式，'id','name','class_name','link_text','tag_name','xpath','css'")
+            raise NameError("请输入正确的查找方式，'id','name','class_name','link_text','tag_name','xpath','css'")
 
     def select(self, selector, select_type, value):
         """
@@ -254,29 +253,28 @@ class MyPage(object):
         :param selector:select元素定位
         :param select_type:select查找方法，有index, value, visible_text
         :param value:要查找的值，对应type，如type是visible_text则查找option显示的文本
-        :return:
         """
         self.wait_element(selector)
         if select_type == "index":
             try:
                 Select(self.find_element(selector)).select_by_index(value)
-                self.logger.info(u"%s通过option的<%s>选中第<%s>项" % (success, select_type, value))
+                self.logger.info("%s通过option的<%s>选中第<%s>项" % (success, select_type, value))
             except Exception as e:
-                self.logger.error(u"%s无法通过<%s>选中第<%s>项，错误：%s" % (fail, select_type, value, e))
+                self.logger.error("%s无法通过<%s>选中第<%s>项，错误：%s" % (fail, select_type, value, e))
         elif select_type == "value":
             try:
                 Select(self.find_element(selector)).select_by_value(value)
-                self.logger.info(u"%s通过option的<%s>选中<%s>项" % (success, select_type, value))
+                self.logger.info("%s通过option的<%s>选中<%s>项" % (success, select_type, value))
             except Exception as e:
-                self.logger.error(u"%s无法通过<%s>选中<%s>项，错误：%s" % (fail, select_type, value, e))
+                self.logger.error("%s无法通过<%s>选中<%s>项，错误：%s" % (fail, select_type, value, e))
         elif select_type == "visible_text":
             try:
                 Select(self.find_element(selector)).select_by_visible_text(value)
-                self.logger.info(u"%s通过option的<%s>选中<%s>项" % (success, select_type, value))
+                self.logger.info("%s通过option的<%s>选中<%s>项" % (success, select_type, value))
             except Exception as e:
-                self.logger.error(u"%s无法通过<%s>选中<%s>项，错误：%s" % (fail, select_type, value, e))
+                self.logger.error("%s无法通过<%s>选中<%s>项，错误：%s" % (fail, select_type, value, e))
         else:
-            raise NameError(u"请输入正确的查找方法：index, value, visible_text")
+            raise NameError("请输入正确的查找方法：index, value, visible_text")
 
     def get_page_title(self):
         """
@@ -284,22 +282,21 @@ class MyPage(object):
         :return: title
         """
         title = self.driver.title
-        self.logger.info(u"%s获取当前网页title为：%s" % (success, title))
+        self.logger.info("%s获取当前网页title为：%s" % (success, title))
         return title
 
     def move_to(self, selector):
         """
         鼠标移动到元素并停留
-        :return:
         """
         self.wait_element(selector)
         try:
             elem = self.find_element(selector)
             ActionChains(self.driver).move_to_element(elem).perform()
-            self.logger.info(u"%s鼠标移动至元素%s" % (success, selector))
+            self.logger.info("%s鼠标移动至元素%s" % (success, selector))
         except Exception as e:
-            self.logger.error(u"%s移动至元素%s失败，错误：%s" % (fail, selector, e))
+            self.logger.error("%s移动至元素%s失败，错误：%s" % (fail, selector, e))
 
     def quit(self):
         self.driver.quit()
-        self.logger.info(u"退出浏览器")
+        self.logger.info("退出浏览器")

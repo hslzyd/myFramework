@@ -9,7 +9,7 @@ from public import basepage
 class Bing(basepage.BasePage):
 
     def open_bing(self):
-        u"""打开bing"""
+        """打开bing"""
         self.driver.open_url("http://www.bing.com")
 
     def search(self, keyword):
@@ -17,5 +17,5 @@ class Bing(basepage.BasePage):
         self.driver.click("id=>sb_form_go")
 
     def get_title(self):
-        u"""获取页面title"""
+        """获取页面title"""
         return self.driver.get_page_title()
