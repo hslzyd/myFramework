@@ -21,7 +21,7 @@ class INIReader:
     def data(self):
         if not self._data:
             cp = configparser.ConfigParser()
-            cp.read(self.ini_file)
+            cp.read(self.ini_file, encoding="utf-8")
             self._data = cp
         return self._data
 

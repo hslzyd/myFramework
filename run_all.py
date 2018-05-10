@@ -4,6 +4,7 @@ import unittest
 from utils import HTMLTestRunner_PY3
 import time
 from utils.config import CASE_PATH, REPORT_PATH
+from utils.mail import Mail
 
 
 def run():
@@ -13,6 +14,7 @@ def run():
     fp = open(report_name, 'wb')
     runner = HTMLTestRunner_PY3.HTMLTestRunner(stream=fp, title=u"测试报告", description=u"测试用例执行情况")
     runner.run(suite)
+    Mail(report_name).send()  # 发送测试报告
     fp.close()
 
 
