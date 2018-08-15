@@ -6,6 +6,7 @@ by huangsl
 """
 import logging
 import time
+import os
 from utils.config import LOG_PATH
 
 
@@ -16,7 +17,9 @@ class Logger(object):
 
         # 创建fileHandler，保存日志到日志文件
         now = time.strftime("%Y%m%d%H%M%S")
-        log_name = LOG_PATH + '\\' + now + '.log'
+        if not os.path.exists(LOG_PATH):
+            os.mkdir(LOG_PATH)
+        log_name = LOG_PATH + '/' + now + '.log'
         fh = logging.FileHandler(log_name)
         fh.setLevel(logging.INFO)
 

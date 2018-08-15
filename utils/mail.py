@@ -27,7 +27,7 @@ class Mail:
     def _attach_file(self, att_file):
         """
         添加附件
-        :param att_file:
+        :param att_file:str类型，文件名
         """
         att = MIMEText(open('%s' % att_file, 'rb').read(), 'plain', 'utf-8')
         att["Content-Type"] = 'application/octet-stream'
@@ -41,7 +41,7 @@ class Mail:
         self.msg['To'] = self.to_addr
         self.msg.attach(MIMEText(self.message))
 
-        # 添加附件，若附件有多个则传入list，若只有单个文件，传入str(文件名)
+        # 添加附件，若附件有多个文件则传入list，若只有单个文件，传入str(文件名)
         if self.attach:
             if isinstance(self.attach, list):
                 for a in self.attach:

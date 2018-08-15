@@ -12,7 +12,8 @@ from selenium.webdriver.common.by import By
 from utils.logger import Logger
 from selenium.webdriver.support.ui import Select
 from public.browser import Browser
-import utils.config
+from utils.config import Config, SCREENSHOT_PATH
+import os
 
 success = "SUCCESS    "
 fail = "FAIL    "
@@ -22,9 +23,11 @@ now_time = time.strftime("%Y%m%d%H%M%S")
 class MyPage(object):
 
     def __init__(self):
-        self.br_type = utils.config.Config().get("browser", "name")
+        self.logger = Logger(logger=self.__class__.__name__).getlog()
+
+        self.br_type = Config().get("browser", "name")
         self.driver = Browser().get_driver()
-        self.logger = Logger(logger=__name__).getlog()
+        self.logger.info("%s启动%s浏览器" % (success, self.br_type))
 
     def back(self):
         self.driver.back()
@@ -43,7 +46,9 @@ class MyPage(object):
         self.logger.info("强制等待 %f 秒" % secs)
 
     def take_screenshot(self):
-        file_name = utils.config.SCREENSHOT_PATH + now_time + '.jpg'
+        if not os.path.exists(SCREENSHOT_PATH):
+            os.mkdir(SCREENSHOT_PATH)
+        file_name = SCREENSHOT_PATH + '/' + now_time + '.jpg'
         try:
             self.driver.get_screenshot_as_file(file_name)
             self.logger.info("%s已截图保存为：%s" % (success, file_name))
@@ -241,7 +246,7 @@ class MyPage(object):
         elif selector_by == 'xpath':
             WebDriverWait(self.driver, 10, 0.5)\
                 .until(ec.presence_of_element_located((By.XPATH, selector_value)), message)
-        elif selector_by == 'css':
+        elif selector_by == 'css_selector':
             WebDriverWait(self.driver, 10, 0.5)\
                 .until(ec.presence_of_element_located((By.CSS_SELECTOR, selector_value)), message)
         else:

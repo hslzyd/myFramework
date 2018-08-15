@@ -10,12 +10,14 @@ from utils import logger
 
 
 class MyTest(unittest.TestCase):
-    def setUp(self):
-        self.logger = logger.Logger("MyTest").getlog()
+    @classmethod
+    def setUpClass(self):
+        self.logger = logger.Logger(self.__name__).getlog()
         self.logger.info("############################## Test Start ##############################")
         self.driver = mypage.MyPage()
         self.driver.max_window()
 
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(self):
         self.driver.quit()
         self.logger.info("##############################  Test End  ##############################")

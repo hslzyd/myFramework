@@ -65,8 +65,8 @@ class ExcelReader:
 
 
 if __name__ == "__main__":
-    e1 = 'D:\\Work\\test\\projects\\myFramework\\data\\test1.xlsx'
-    e2 = 'D:\\Work\\test\\projects\\myFramework\\data\\test2.xlsx'
+    e1 = 'D:/Work/test/projects/myFramework/data/test1.xlsx'
+    e2 = 'D:/Work/test/projects/myFramework/data/test2.xlsx'
     reader1 = ExcelReader(e1, title_line=True)
     reader2 = ExcelReader(e2, title_line=False)
     print(reader1.data)

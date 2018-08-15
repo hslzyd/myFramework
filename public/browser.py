@@ -13,7 +13,7 @@ EXECUTABLE_PATH = {'chrome': CHROME_DRIVER, 'firefox': FIREFOX_DRIVER, 'ie': IE_
 
 SUCCESS = "SUCCESS    "
 FAIL = "FAIL    "
-logger = Logger(logger="Browser").getlog()
+# logger = Logger(logger="Browser").getlog()
 now_time = time.strftime("%Y%m%d%H%M%S")
 
 
@@ -33,7 +33,7 @@ class Browser(object):
     def get_driver(self):
 
         self.driver = self.browser(executable_path=EXECUTABLE_PATH[self._type])
-        logger.info("%s启动%s浏览器" % (SUCCESS, self._type))
+        # logger.info("%s启动%s浏览器" % (SUCCESS, self._type))
         return self.driver
 
 
