@@ -20,20 +20,24 @@ class Logger(object):
         if not os.path.exists(LOG_PATH):
             os.mkdir(LOG_PATH)
         log_name = LOG_PATH + '/' + now + '.log'
-        fh = logging.FileHandler(log_name)
-        fh.setLevel(logging.INFO)
+        self.fh = logging.FileHandler(log_name)
+        self.fh.setLevel(logging.INFO)
 
         # 创建streamHandler，在控制台输出日志
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.INFO)
+        self.ch = logging.StreamHandler()
+        self.ch.setLevel(logging.INFO)
 
         # 定义输出格式formatter
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        fh.setFormatter(formatter)
-        ch.setFormatter(formatter)
+        self.fh.setFormatter(formatter)
+        self.ch.setFormatter(formatter)
 
-        self.logger.addHandler(fh)
-        self.logger.addHandler(ch)
+        self.logger.addHandler(self.fh)
+        self.logger.addHandler(self.ch)
 
-    def getlog(self):
+    def get_log(self):
         return self.logger
+
+    def remove_log(self):
+        self.logger.removeHandler(self.fh)
+        self.logger.removeHandler(self.ch)

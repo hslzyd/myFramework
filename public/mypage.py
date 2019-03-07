@@ -4,16 +4,17 @@ by huangsl
 封装selenium常用方法的page类
 """
 
+import os
 import time
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from utils.logger import Logger
 from selenium.webdriver.support.ui import Select
-from public.browser import Browser
-from utils.config import Config, SCREENSHOT_PATH
-import os
+from utils.browser import Browser
+from utils.config import Config, SCREENSHOT_PATH, TEMP_PATH
 
 success = "SUCCESS    "
 fail = "FAIL    "
@@ -23,11 +24,15 @@ now_time = time.strftime("%Y%m%d%H%M%S")
 class MyPage(object):
 
     def __init__(self):
-        self.logger = Logger(logger=self.__class__.__name__).getlog()
+        self.log = Logger(logger=self.__class__.__name__)
+        self.logger = self.log.get_log()
 
-        self.br_type = Config().get("browser", "name")
-        self.driver = Browser().get_driver()
-        self.logger.info("%s启动%s浏览器" % (success, self.br_type))
+        br_type = Config().get("browser", "name")
+        self.driver = Browser(br_type).get_driver()
+        self.logger.info("%s启动%s浏览器" % (success, br_type))
+
+        if not os.path.exists(TEMP_PATH):
+            os.mkdir(TEMP_PATH)
 
     def back(self):
         self.driver.back()
@@ -41,17 +46,18 @@ class MyPage(object):
         self.driver.get(url)
         self.logger.info("打开站点 %s" % url)
 
-    def sleep(self, secs):
+    def wait(self, secs):
         time.sleep(secs)
-        self.logger.info("强制等待 %f 秒" % secs)
+        self.logger.info("等待 %.2f 秒" % secs)
 
     def take_screenshot(self):
         if not os.path.exists(SCREENSHOT_PATH):
             os.mkdir(SCREENSHOT_PATH)
-        file_name = SCREENSHOT_PATH + '/' + now_time + '.jpg'
+        file_name = SCREENSHOT_PATH + '/' + now_time + '.png'
         try:
             self.driver.get_screenshot_as_file(file_name)
             self.logger.info("%s已截图保存为：%s" % (success, file_name))
+            return file_name
         except NameError as e:
             self.logger.error("%s截图失败，错误：%s" % (fail, e))
             self.take_screenshot()
@@ -83,6 +89,10 @@ class MyPage(object):
         # by_link_text
         elif selector_by == "link_text":
             element = self.driver.find_element_by_link_text(selector_value)
+            self.logger.info("%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
+        # by_partial_link_text
+        elif selector_by == "partial_link_text":
+            element = self.driver.find_element_by_type(selector_value)
             self.logger.info("%s通过<%s>查找<%s>元素" % (success, selector_by, selector_value))
         # by_tag_name
         elif selector_by == "tag_name":
@@ -302,6 +312,69 @@ class MyPage(object):
         except Exception as e:
             self.logger.error("%s移动至元素%s失败，错误：%s" % (fail, selector, e))
 
+    def enter(self, selector):
+        """
+        模拟键盘回车按钮
+        """
+        self.wait_element(selector)
+        elem = self.find_element(selector)
+        elem.send_keys(Keys.ENTER)
+        self.logger.info("点击回车")
+
+    def operate_alert(self, option="OK"):
+        """
+        alert弹窗操作
+        :param option: 点击确认或取消，"OK"--确认，"Cancel"--取消， 默认点确认
+        """
+        al = self.driver.switch_to.alert
+        if option == "OK":
+            al.accept()
+            self.logger.info("弹窗点击确认")
+        else:
+            al.dismiss()
+            self.logger.info("弹窗点击取消")
+
+    def switch_window(self, title):
+        """
+        切换窗口、标签页
+        :param title: 窗口、标签title
+        :return:
+        """
+        handlers = self.driver.window_handles
+        for handler in handlers:
+            self.driver.switch_to.window(handler)
+            if self.driver.title == title:
+                self.logger.info("切换至<%s>窗口" % title)
+                break
+
+    def switch_frame(self, frame):
+        """
+        切换iframe
+        :param frame: iframe的name，id，default--切换至主文档，parent--切换至上一层iframe
+        :return:
+        """
+        if frame == "default":
+            self.driver.switch_to.default_content()
+            self.logger.info("切换至主文档")
+        elif frame == "parent":
+            self.driver.switch_to.parent_frame()
+            self.logger.info("切换回上一层iframe")
+        else:
+            self.driver.switch_to.frame(frame)
+            self.logger.info("切换至iframe<%s>" % frame)
+
     def quit(self):
+        """
+        退出浏览器
+        """
         self.driver.quit()
         self.logger.info("退出浏览器")
+        self.log.remove_log()
+
+
+if __name__ == "__main__":
+    p1 = MyPage()
+    p1.open_url("http://uucenter.uulian.com.cn/register")
+    elem = p1.find_element('id=>code')
+    code_image = TEMP_PATH + '/code.png'
+    elem.screenshot(code_image)

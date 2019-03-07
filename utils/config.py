@@ -6,7 +6,7 @@
 import os
 from utils.file_reader import INIReader
 
-BASE_PATH = os.path.split(os.path.dirname(os.path.abspath(__file__)))[0]
+BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE = os.path.join(BASE_PATH, 'config', 'config.ini')
 LOG_PATH = os.path.join(BASE_PATH, 'logs')
 REPORT_PATH = os.path.join(BASE_PATH, 'reports')
@@ -14,6 +14,7 @@ SCREENSHOT_PATH = os.path.join(BASE_PATH, 'screenshots')
 DRIVER_PATH = os.path.join(BASE_PATH, 'drivers')
 DATA_PATH = os.path.join(BASE_PATH, 'data')
 CASE_PATH = os.path.join(BASE_PATH, 'test_case')
+TEMP_PATH = os.path.join(BASE_PATH, 'temp')
 
 
 class Config:
