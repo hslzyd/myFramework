@@ -30,6 +30,11 @@ selector同上，text为要输入的字符串，log_text为bool值，是否在lo
 - 下拉选择：select(selector, select_type, value)，
 select_type有index, value, visible_text三种方式，value为对应type的值
 - 移动鼠标到元素上悬停：move_to(selector)
+- enter：模拟键盘回车键
+- operate_alert：alert弹窗操作
+- switch_window：切换窗口、标签页
+- switch_frame：切换iframe
+- quit：退出浏览器
  
 ## 3、基本用法
 1. 修改config文件夹下的ini配置文件，选择要用的浏览器
@@ -38,4 +43,4 @@ select_type有index, value, visible_text三种方式，value为对应type的值
 4. 执行run_all.py，生成测试报告
 
 ## 4、待扩展功能
-邮箱发送测试报告（感觉用处不是特别大）、selenium grid、更多的数据驱动
+selenium grid、更多的数据驱动
